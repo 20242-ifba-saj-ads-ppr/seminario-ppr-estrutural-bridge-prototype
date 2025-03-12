@@ -20,10 +20,6 @@ class PagamentoOnline extends Pagamento {
     + pagar(double valor)
 }
 
-class PagamentoPresencial extends Pagamento {
-    + pagar(double valor)
-}
-
 class Pix implements MetodoPagamento {
     + processarPagamento(double valor)
 }
@@ -33,7 +29,6 @@ class Main {
 }
 
 Pagamento <|-- PagamentoOnline
-Pagamento <|-- PagamentoPresencial
 MetodoPagamento <|.. Pix
 Pagamento *-- MetodoPagamento
 @enduml
