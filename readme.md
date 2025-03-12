@@ -47,8 +47,6 @@ Pagamento *-- MetodoPagamento
 
 - **PagamentoOnline (Classe concreta):** Especialização de pagamento que processa pagamentos online.
 
-- **PagamentoPresencial (Classe concreta):** Especialização de pagamento que processa pagamentos presenciais.
-
 - **Pix (Classe concreta):** Implementa a interface MetodoPagamento para processar pagamentos via Pix.
 
 - **Main (Classe principal):** Responsável por executar o sistema e demonstrar os pagamentos em funcionamento.
