@@ -3,36 +3,7 @@
 O sistema precisa oferecer múltiplas formas de pagamento, como pagamentos online e presenciais, utilizando diferentes métodos (cartão de crédito, Pix, boleto). Implementar todas as combinações diretamente pode resultar em um código inflexível e difícil de manter.
 
 ## UML
-
-```plantuml
-@startuml
-interface MetodoPagamento {
-    +processarPagamento(double valor)
-}
-
-abstract class Pagamento {
-    - MetodoPagamento metodoPagamento
-    + Pagamento(MetodoPagamento metodoPagamento)
-    + pagar(double valor)
-}
-
-class PagamentoOnline extends Pagamento {
-    + pagar(double valor)
-}
-
-class Pix implements MetodoPagamento {
-    + processarPagamento(double valor)
-}
-
-class Main {
-    + main(String[] args)
-}
-
-Pagamento <|-- PagamentoOnline
-MetodoPagamento <|.. Pix
-Pagamento *-- MetodoPagamento
-@enduml
-```
+![alt text](image.png)
 
 ## Participantes
 
