@@ -124,7 +124,7 @@ classDiagram
     Pagamento <|-- PagamentoOnline
     Pagamento <|-- PagamentoPresencial
 
-    Pagamento o-- MetodoPagamento : usa
+    Pagamento o-- MetodoPagamento : Composição
 ```
 
 ## Participantes:
