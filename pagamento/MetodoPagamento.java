@@ -1,4 +1,4 @@
 package pagamento;
-interface MetodoPagamento {
+public interface MetodoPagamento {
     void processarPagamento(double valor);
 }

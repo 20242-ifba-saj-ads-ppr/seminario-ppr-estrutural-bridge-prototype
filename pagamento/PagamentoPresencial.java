@@ -1,13 +1,13 @@
 package pagamento;
-public class PagamentoOnline extends Pagamento {
+public class PagamentoPresencial extends Pagamento {
 
-    public PagamentoOnline(MetodoPagamento metodoPagamento) {
+    public PagamentoPresencial(MetodoPagamento metodoPagamento) {
         super(metodoPagamento);
     }
 
     @Override
     public void pagar(double valor) {
-        System.out.println("[Pagamento Online]");
+        System.out.println("[Pagamento Presencial]");
         metodoPagamento.processarPagamento(valor);
     }
 }
