@@ -11,12 +11,33 @@ Imagine que um sistema de pagamentos precisa oferecer várias formas de pagament
 
 ### Situação sem Bridge:
 Se criarmos uma classe para cada combinação, teríamos algo como:
-- PagamentoOnlineComPix
-- PagamentoOnlineComCartaoCredito
-- PagamentoPresencialComBoleto  
-... 
+```java
+abstract class Pagamento {
+    abstract void pagar(double valor);
+}
 
-O número de classes cresce rapidamente à medida que novas formas de pagamento ou métodos de pagamento são adicionados. Isso deixa o sistema rígido, difícil de manter e pouco escalável
+class PagamentoOnlinePix extends Pagamento {
+    @Override
+    void pagar(double valor) {
+        System.out.println("[Pagamento Online] Pagamento de R$" + valor + " via Pix.");
+    }
+}
+
+class PagamentoOnlineCartao extends Pagamento {
+    @Override
+    void pagar(double valor) {
+        System.out.println("[Pagamento Online] Pagamento de R$" + valor + " via Cartão.");
+    }
+}
+
+class PagamentoPresencialBoleto extends Pagamento {
+    @Override
+    void pagar(double valor) {
+        System.out.println("[Pagamento Presencial] Boleto gerado para pagamento de R$" + valor);
+    }
+}
+```
+**O número de classes cresce rapidamente à medida que novas formas de pagamento ou métodos de pagamento são adicionados. Isso deixa o sistema rígido, difícil de manter e pouco escalável representando uma herança pesada**
 
 ## Solução com Bridge:
 O padrão Bridge resolve o problema separando a abstração (Pagamentos) da implementação concreta (Métodos de Pagamento).
@@ -25,14 +46,6 @@ Assim:
 - Podemos criar novas formas de pagamento sem mexer nos métodos de pagamento.
 - Podemos adicionar novos métodos de pagamento sem mexer nas abstrações de pagamento.
 - O código fica flexível, coeso e fácil de manter.
-
-## Tabela de Estrutura GOF
-| Papel no Bridge        | Classe no Código                      |
-|------------------------|--------------------------------------|
-| Abstraction        | Pagamento                            |
-| RefinedAbstraction | PagamentoOnline, PagamentoPresencial |
-| Implementor        | MetodoPagamento (interface)          |
-| ConcreteImplementor| Pix, CartaoCredito, Boleto           |
 
 ## Use o padrão Bridge quando:
 
@@ -45,18 +58,31 @@ Assim:
 ### Antes do Bridge (Alta dependência entre as partes)
 ```mermaid
 classDiagram
+    class Pagamento {
+        <<abstract>>
+        +pagar(valor: double): void
+    }
+
     class PagamentoOnlineComPix {
         +pagar(valor: double): void
     }
+
     class PagamentoOnlineComCartao {
         +pagar(valor: double): void
     }
+
     class PagamentoPresencialComPix {
         +pagar(valor: double): void
     }
+
     class PagamentoPresencialComCartao {
         +pagar(valor: double): void
     }
+
+    Pagamento <|-- PagamentoOnlineComPix
+    Pagamento <|-- PagamentoOnlineComCartao
+    Pagamento <|-- PagamentoPresencialComPix
+    Pagamento <|-- PagamentoPresencialComCartao
 ```
 
 ### Depois com Bridge (Abstração desacoplada da Implementação)
@@ -78,6 +104,7 @@ classDiagram
     }
 
     class Pagamento {
+        <<abstract>>
         -metodoPagamento: MetodoPagamento
         +pagar(valor: double): void
     }
@@ -118,6 +145,15 @@ classDiagram
 - Flexibilidade: Novas abstrações e implementações podem ser combinadas sem modificar código existente.
 
 ## Implementação
+
+### Tabela de Estrutura GOF
+| Papel no Bridge        | Classe no Código                      |
+|------------------------|--------------------------------------|
+| Abstraction        | Pagamento                            |
+| RefinedAbstraction | PagamentoOnline, PagamentoPresencial |
+| Implementor        | MetodoPagamento (interface)          |
+| ConcreteImplementor| Pix, CartaoCredito, Boleto           |
+
 
 ### Código com Bridge aplicado
 ```java
@@ -226,6 +262,8 @@ class Boleto implements MetodoPagamento {
     }
 }
 ```
+
+
 
 ## Conclusão
 O padrão Bridge permitiu ao sistema de pagamentos separar formas de pagamento e métodos de pagamento, facilitando a adição de novas funcionalidades sem alterar o código existente.
